@@ -1,1 +1,21 @@
-<p>product-list works!</p>
+<!-- table for products with name and unitPrice-->
+<table class="table table-bordered table-hover">
+  <thead class="table-light">
+    <tr class="text-center">
+      <th></th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products" class="align-middle">
+      <td>
+        <img src="{{ product.imageUrl }}" height="40" />
+      </td>
+      <td>{{ product.name }}</td>
+      <td class="text-center">{{ product.unitPrice | currency : "USD" }}</td>
+      <td class="text-center">{{ product.unitsInStock }}</td>
+    </tr>
+  </tbody>
+</table>
