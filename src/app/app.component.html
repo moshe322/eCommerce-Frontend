@@ -1,9 +1,9 @@
 <body>
   <div class="sidebar">
-    <a href="#">Books</a>
-    <a href="#">Coffee Mugs</a>
-    <a href="#">Mouse Pads</a>
-    <a href="#">Luggage Tags</a>
+    <a routerLink="/category/1" routerLinkActive="active-link">Books</a>
+    <a routerLink="/category/2" routerLinkActive="active-link">Coffee Mugs</a>
+    <a routerLink="/category/3" routerLinkActive="active-link">Mouse Pads</a>
+    <a routerLink="/category/4" routerLinkActive="active-link">Luggage Tags</a>
   </div>
 
   <div class="header">
@@ -34,7 +34,7 @@
   </div>
 
   <div class="main">
-    <app-product-list></app-product-list>
+    <router-outlet></router-outlet>
   </div>
 
   <div class="footer">

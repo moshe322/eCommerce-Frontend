@@ -64,3 +64,7 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+
+.active-link {
+  font-weight: bold;
+}
