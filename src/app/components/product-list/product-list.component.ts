@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  currentCategoryId: number = 1;
+  currentCategoryId: number = 0;
   currentCategoryName: string = "";
 
   constructor(
@@ -26,8 +26,8 @@ export class ProductListComponent implements OnInit {
         this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
       } else {
         //default values
-        this.currentCategoryId = 1;
-        this.currentCategoryName = "Books";
+        this.currentCategoryId = 0;
+        this.currentCategoryName = "All";
       }
 
       this.productService
