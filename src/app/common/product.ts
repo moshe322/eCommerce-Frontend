@@ -1,4 +1,5 @@
 export class Product {
+  private _id: number;
   private _sku: string;
   private _name: string;
   private _description: number;
@@ -10,6 +11,7 @@ export class Product {
   private _lastUpdated: Date;
 
   constructor(
+    id: number,
     sku: string,
     name: string,
     description: number,
@@ -20,6 +22,7 @@ export class Product {
     dateCreated: Date,
     lastUpdated: Date
   ) {
+    this._id = id;
     this._sku = sku;
     this._name = name;
     this._description = description;
@@ -29,6 +32,13 @@ export class Product {
     this._unitsInStock = unitsInStock;
     this._dateCreated = dateCreated;
     this._lastUpdated = lastUpdated;
+  }
+
+  get id(): number {
+    return this._id;
+  }
+  set id(value: number) {
+    this._id = value;
   }
 
   get sku(): string {

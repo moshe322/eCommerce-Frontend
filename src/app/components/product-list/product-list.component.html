@@ -4,8 +4,14 @@
   <div class="row">
     <div *ngFor="let tempProduct of products" class="col-md-3">
       <div class="product-box">
-        <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
-        <h1>{{ tempProduct.name }}</h1>
+        <a routerLink="/products/{{ tempProduct.id }}">
+          <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
+        </a>
+        <a routerLink="/products/{{ tempProduct.id }}" class="nameATag">
+          <h1>
+            {{ tempProduct.name }}
+          </h1>
+        </a>
         <div class="price">
           {{ tempProduct.unitPrice | currency : "USD" }}
         </div>
@@ -13,11 +19,11 @@
       </div>
     </div>
   </div>
+
+  <!-- Warning No Products-->
   <div *ngIf="products?.length == 0 && searchOn" class="row mt-5">
     <div class="col-md-6 offset-md-3">
-      <div class="alert alert-danger text-center">
-        Product not found.
-      </div>
+      <div class="alert alert-danger text-center">Product not found.</div>
     </div>
   </div>
 </div>

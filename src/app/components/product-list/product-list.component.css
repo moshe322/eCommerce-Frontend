@@ -16,6 +16,9 @@
   font-weight: 600;
   padding-top: 12px;
   margin-bottom: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .product-box h2 {
   font-size: 15px;
@@ -23,8 +26,7 @@
   font-weight: 500;
   color: #585858;
 }
-.product-box h1 {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.nameATag {
+  text-decoration: none;
+  color: #000;
 }
