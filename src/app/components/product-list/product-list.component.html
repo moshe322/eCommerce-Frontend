@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h4>Category: {{currentCategoryName}}</h4>
+  <h4>Category: {{ currentCategoryName }}</h4>
   <hr />
   <div class="row">
     <div *ngFor="let tempProduct of products" class="col-md-3">
@@ -10,6 +10,13 @@
           {{ tempProduct.unitPrice | currency : "USD" }}
         </div>
         <a href="#" class="btn btn-secondary">Add to Cart</a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="products?.length == 0" class="row mt-5">
+    <div class="col-md-6 offset-md-3">
+      <div class="alert alert-danger text-center">
+        Product not found.
       </div>
     </div>
   </div>

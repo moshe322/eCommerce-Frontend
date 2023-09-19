@@ -1,0 +1,10 @@
+<div class="search-bar" >
+  <div class="input-group">
+    <input #input type="text" class="form-control" placeholder="Search..." (keyup.enter)="search(input.value)" />
+    <div class="input-group-append">
+      <button class="btn btn-primary" (click)="search(input.value)">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
