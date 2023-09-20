@@ -15,10 +15,10 @@
       </p>
       <div class="price">{{ product.unitPrice | currency : "USD" }}</div>
       <br />
-      <a href="#" class="btn btn-secondary">Add to Cart</a>
+      <a (click)="addToCart(product)" class="btn btn-secondary">Add to Cart</a>
     </div>
     <a routerLink="/products" class="mt-5 goBack"
-      ><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i
-    > Go Back</a>
+      ><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Go Back</a
+    >
   </div>
 </div>
