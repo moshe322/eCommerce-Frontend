@@ -2,7 +2,7 @@ export class Product {
   private _id: number;
   private _sku: string;
   private _name: string;
-  private _description: number;
+  private _description: string;
   private _unitPrice: number;
   private _imageUrl: string;
   private _active: boolean;
@@ -14,7 +14,7 @@ export class Product {
     id: number,
     sku: string,
     name: string,
-    description: number,
+    description: string,
     unitPrice: number,
     imageUrl: string,
     active: boolean,
@@ -55,10 +55,10 @@ export class Product {
     this._name = value;
   }
 
-  get description(): number {
+  get description(): string {
     return this._description;
   }
-  set description(value: number) {
+  set description(value: string) {
     this._description = value;
   }
 

@@ -12,7 +12,7 @@ export class ProductDetailsComponent implements OnInit {
   private _router: ActivatedRoute;
   private _productService: ProductService;
 
-  product!: Product;
+  product: Product = new Product(0, '', '', '', 0, '', false, 0, new Date(), new Date());
 
   constructor(router: ActivatedRoute, productService: ProductService) {
     this._router = router;
