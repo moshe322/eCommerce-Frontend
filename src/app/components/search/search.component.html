@@ -3,13 +3,13 @@
     <input
       #input
       type="text"
-      class="form-control"
+      class="form-control inputC rounded-pill"
       placeholder="Search..."
       (keyup.enter)="search(input.value); input.value = ''"
     />
     <div class="input-group-append">
       <button
-        class="btn btn-primary"
+        class="btn btn-secondary rounded-circle"
         (click)="search(input.value); input.value = ''"
       >
         <i class="fas fa-search"></i>

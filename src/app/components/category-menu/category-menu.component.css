@@ -4,7 +4,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #333;
+  background-color: #263238;
   padding-top: 20px;
 }
 
@@ -13,12 +13,12 @@
   text-align: center;
   text-decoration: none;
   font-size: 18px;
-  color: white;
+  color: #eceff1;
   display: block;
 }
 
 .sidebar a:hover {
-  background-color: #444;
+  background-color: #37474f;
 }
 
 .active-link {

@@ -1,14 +1,17 @@
 .product-box img {
   width: 150px;
 }
+
 .product-box {
   margin-bottom: 60px;
 }
+
 .price {
   margin: 15px 0 0;
-  font-weight: 800;
+  font-weight: 750;
   color: black;
 }
+
 .product-box h1 {
   font-size: 18px;
   border-bottom: 1px solid #ccc;
@@ -20,30 +23,37 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .product-box h2 {
   font-size: 15px;
   padding-bottom: 0;
   font-weight: 500;
   color: #585858;
 }
+
 .nameATag {
   text-decoration: none;
   color: #000;
 }
+
 select {
   margin-left: 5px;
 }
+
 ngb-pagination ::ng-deep a {
   color: black !important;
 }
+
 ngb-pagination ::ng-deep .page-item.active .page-link {
   border-color: black;
   background-color: lightgrey;
 }
+
 ngb-pagination ::ng-deep .page-item.active .page-link:focus,
 .page-link:not(:disabled):not(.disabled):active:focus {
   box-shadow: 0 0 0 0.1rem dimgrey;
 }
+
 ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
   box-shadow: 0 0 0 0.1rem dimgrey;
 }

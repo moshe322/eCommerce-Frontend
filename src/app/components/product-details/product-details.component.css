@@ -1,12 +1,14 @@
 .price {
   margin: 15px 0 0;
-  font-weight: 800;
+  font-weight: 750;
   color: black;
 }
+
 img {
   width: 250px;
 }
+
 .goBack {
   text-decoration: none;
-  color: #000;
+  color: #263238;
 }

@@ -1,13 +1,13 @@
 .header {
-  background-color: #333;
-  color: white;
+  background-color: #263238;
+  color: #eceff1;
   padding: 10px 0;
   margin-left: 250px;
   z-index: 1;
 }
 
 .cart-icon {
-  color: white;
+  color: #eceff1;
   margin-right: 20px;
 }
 
@@ -18,8 +18,8 @@
 }
 
 .footer {
-  background-color: #333;
-  color: white;
+  background-color: #263238;
+  color: #eceff1;
   text-align: right;
   position: fixed;
   width: 100%;
