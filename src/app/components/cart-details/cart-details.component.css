@@ -1,0 +1,9 @@
+.totals {
+  text-align: right;
+  font-weight: bold;
+}
+
+.img-thumbnail {
+  max-width: 100%;
+  height: auto;
+}

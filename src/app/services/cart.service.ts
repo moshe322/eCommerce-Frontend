@@ -11,6 +11,25 @@ export class CartService {
   private _totalQuantitySubject = new BehaviorSubject<number>(0);
   private _totalPriceSubject = new BehaviorSubject<number>(0);
 
+  //get cart items
+  get cartItems(): CartItem[] {
+    return this._cartItems;
+  }
+
+  //remove product from cart
+  //check if product exists in cart
+  //if exists, remove item from cart
+  //update total quantity and price
+  remove(product: Product): void {
+    let itemIndex = this._cartItems.findIndex(
+      (item) => item.product.id == product.id
+    );
+    if (itemIndex > -1) {
+      this._cartItems.splice(itemIndex, 1);
+    }
+    this.updateStatus();
+  }
+
   //add product to cart
   //check if product already exists in cart
   //if exists, increment quantity

@@ -1,0 +1,66 @@
+<div class="row mt-5" *ngIf="cartItems.length === 0; else table">
+  <div class="col-md-6 offset-md-3">
+    <div class="alert alert-warning text-center">No items in the cart.</div>
+  </div>
+</div>
+<ng-template #table>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th style="width: 20%">Image</th>
+        <th style="width: 50%">Details</th>
+        <th style="width: 30%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cartItem of cartItems">
+        <td>
+          <img [src]="cartItem.product.imageUrl" class="img-thumbnail" />
+        </td>
+        <td>
+          <p style="font-weight: bold">{{ cartItem.product.name }}</p>
+          <p>{{ cartItem.product.unitPrice | currency : "USD" }}</p>
+        </td>
+        <td>
+          <div>
+            <p style="margin-bottom: 5px">Quantity</p>
+            <div class="d-flex" style="margin-top: -5px">
+              <button
+                class="btn btn-secondary btn-sm"
+                (click)="incrementQuantity(cartItem)"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+              <p style="margin: 0 10px">{{ cartItem.quantity }}</p>
+              <button
+                class="btn btn-secondary btn-sm"
+                (click)="decrementQuantity(cartItem)"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <button
+            class="btn btn-danger btn-sm"
+            style="margin-top: 5px"
+            (click)="removeItem(cartItem)"
+          >
+            Remove
+          </button>
+          <p>
+            Subtotal:
+            {{
+              cartItem.quantity * cartItem.product.unitPrice | currency : "USD"
+            }}
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" class="totals">
+          <p>Total Quantity: {{ totalQuantity }}</p>
+          <p>Total Price: {{ totalPrice | currency : "USD" }}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
