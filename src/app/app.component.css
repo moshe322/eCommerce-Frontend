@@ -2,7 +2,7 @@
   background-color: #263238;
   color: #eceff1;
   padding: 10px 0;
-  margin-left: 250px;
+  margin-left: 170px;
   z-index: 1;
 }
 
@@ -12,9 +12,9 @@
 }
 
 .main {
-  margin-left: 250px;
+  margin-left: 170px;
   padding: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 }
 
 .footer {
