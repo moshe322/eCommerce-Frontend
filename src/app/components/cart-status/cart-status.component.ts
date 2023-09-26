@@ -15,17 +15,25 @@ export class CartStatusComponent {
     this._cartService = cartService;
   }
 
+  /**
+   * Get total quantity and price when component is initialized.
+   * @memberof CartStatusComponent
+   */
   ngOnInit(): void {
     this.updateCartStatus();
   }
 
-  //update total quantity and price
+  /**
+   * Update total quantity and price.
+   * @private
+   * @memberof CartStatusComponent
+   */
   private updateCartStatus() {
-    this._cartService.getTotalQuantity().subscribe(
-      (totalQuantity) => (this.totalQuantity = totalQuantity)
-    );
-    this._cartService.getTotalPrice().subscribe(
-      (totalPrice) => (this.totalPrice = totalPrice)
-    );
+    this._cartService
+      .getTotalQuantity()
+      .subscribe((totalQuantity) => (this.totalQuantity = totalQuantity));
+    this._cartService
+      .getTotalPrice()
+      .subscribe((totalPrice) => (this.totalPrice = totalPrice));
   }
 }

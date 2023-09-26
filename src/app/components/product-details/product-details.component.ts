@@ -37,18 +37,32 @@ export class ProductDetailsComponent implements OnInit {
     this._cartService = cartService;
   }
 
+  /**
+   * Get product details.
+   * @memberof ProductDetailsComponent
+   */
   ngOnInit(): void {
     const productId: number = +this._router.snapshot.paramMap.get('id')!;
     this.getProductDetails(productId);
   }
 
+  /**
+   * Get product details.
+   * @private
+   * @param productId
+   * @memberof ProductDetailsComponent
+   */
   private getProductDetails(productId: number) {
     this._productService.getProduct(productId).subscribe((data) => {
       this.product = data;
     });
   }
 
-  //add product to cart
+  /**
+   * Add product to cart.
+   * @param product
+   * @memberof ProductDetailsComponent
+   */
   addToCart(product: Product): void {
     this._cartService.addToCart(product);
   }

@@ -28,9 +28,12 @@ export class ProductListComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  //get products when component is initialized
-  //if search is on, search products
-  //if search is off, list products
+  /**
+   * Get products when component is initialized.
+   * If search is on, search products.
+   * If search is off, list products.
+   * @memberof ProductListComponent
+   */
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
       this.searchOn = this.route.snapshot.paramMap.has('keyword');
@@ -42,7 +45,10 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  //search products using keyword
+  /**
+   * Search products using keyword.
+   * @memberof ProductListComponent
+   */
   searchProducts(): void {
     this.keyword = this.route.snapshot.paramMap.get('keyword')!;
     if (this.keyword != this.previousKeyword) {
@@ -60,9 +66,12 @@ export class ProductListComponent implements OnInit {
     this.scrollUp();
   }
 
-  //list products using category id
-  //if catgeory id is 0, list all products
-  //if category id is not 0, list products by category id
+  /**
+   * List products using category id.
+   * If catgeory id is 0, list all products.
+   * If category id is not 0, list products by category id.
+   * @memberof ProductListComponent
+   */
   listProducts(): void {
     this.route.paramMap.subscribe(() => {
       const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
@@ -97,16 +106,23 @@ export class ProductListComponent implements OnInit {
     this.scrollUp();
   }
 
-  //scroll to top of page
-  //smooth scroll
+  /**
+   * Scroll to top of page.
+   * Smooth scroll.
+   * @memberof ProductListComponent
+   */
   scrollUp(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  //update page size
-  //reset page number to 1
-  //if search is on, search products
-  //if search is off, list products
+  /**
+   * Update page size.
+   * Reset page number to 1.
+   * If search is on, search products.
+   * If search is off, list products.
+   * @param value
+   * @memberof ProductListComponent
+   */
   updateSize(value: string): void {
     this.pageSize = +value;
     this.pageNumber = 1;
@@ -118,14 +134,21 @@ export class ProductListComponent implements OnInit {
     this.scrollUp();
   }
 
-  //update category name
+  /**
+   * Update category name.
+   * @param name
+   * @memberof ProductListComponent
+   */
   setCategoryName(name: string): void {
     this.currentCategoryName = name;
   }
 
-  //process data from backend
-  //set products, page number, page size, and total elements
-  //return function to be used in subscribe
+  /**
+   * Process data from backend.
+   * Set products, page number, page size, and total elements.
+   * Return function to be used in subscribe.
+   * @memberof ProductListComponent
+   */
   processData() {
     return (data: any) => {
       this.products = data._embedded.products;
@@ -135,7 +158,11 @@ export class ProductListComponent implements OnInit {
     };
   }
 
-  //add product to cart
+  /**
+   * Add product to cart.
+   * @param product
+   * @memberof ProductListComponent
+   */
   addToCart(product: Product): void {
     this.cartService.addToCart(product);
   }

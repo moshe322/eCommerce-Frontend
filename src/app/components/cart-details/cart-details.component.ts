@@ -18,22 +18,47 @@ export class CartDetailsComponent implements OnInit {
     this._cartService = cartService;
   }
 
+  /**
+   * Get cart details when component is initialized.
+   * @memberof CartDetailsComponent
+   */
   ngOnInit(): void {
     this.setCartDetails();
   }
 
+  /**
+   * Increment quantity of product in cart.
+   * @param cartItem
+   * @memberof CartDetailsComponent
+   */
   incrementQuantity(cartItem: CartItem) {
     this._cartService.addToCart(cartItem.product);
   }
 
+  /**
+   * Decrement quantity of product in cart.
+   * @param cartItem
+   * @memberof CartDetailsComponent
+   */
   decrementQuantity(cartItem: CartItem) {
     this._cartService.removeFromCart(cartItem.product);
   }
 
+  /**
+   * Remove product from cart.
+   * @param cartItem
+   * @memberof CartDetailsComponent
+   */
   removeItem(cartItem: CartItem) {
     this._cartService.remove(cartItem.product);
   }
 
+  /**
+   * Set cart details.
+   * Get cart items, total price and total quantity.
+   * @private
+   * @memberof CartDetailsComponent
+   */
   private setCartDetails() {
     this.cartItems = this._cartService.cartItems;
 

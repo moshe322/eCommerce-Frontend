@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './category-menu.component.html',
   styleUrls: ['./category-menu.component.css'],
 })
-export class CategoryMenuComponent implements OnInit{
+export class CategoryMenuComponent implements OnInit {
   private _productService: ProductService;
   public productCategories: ProductCategory[] = [];
 
@@ -15,14 +15,22 @@ export class CategoryMenuComponent implements OnInit{
     this._productService = productService;
   }
 
+  /**
+   * Get product categories when component is initialized.
+   * @memberof CategoryMenuComponent
+   */
   ngOnInit(): void {
     this.listProductCategories();
   }
 
+  /**
+   * Get product categories.
+   * @private
+   * @memberof CategoryMenuComponent
+   */
   private listProductCategories() {
     this._productService.getProductCategories().subscribe((data) => {
       this.productCategories = data;
     });
   }
-  
 }

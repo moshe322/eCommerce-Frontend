@@ -11,15 +11,24 @@ export class CartService {
   private _totalQuantitySubject = new BehaviorSubject<number>(0);
   private _totalPriceSubject = new BehaviorSubject<number>(0);
 
-  //get cart items
+  /**
+   * Get cart items
+   * @returns CartItem[]
+   * @memberof CartService
+   */
   get cartItems(): CartItem[] {
     return this._cartItems;
   }
 
-  //remove product from cart
-  //check if product exists in cart
-  //if exists, remove item from cart
-  //update total quantity and price
+  /**
+   * Remove product from cart.
+   * Check if product exists in cart.
+   * If exists, remove item from cart.
+   * Update total quantity and price.
+   * @param product
+   * @returns void
+   * @memberof CartService
+   */
   remove(product: Product): void {
     let itemIndex = this._cartItems.findIndex(
       (item) => item.product.id == product.id
@@ -30,11 +39,16 @@ export class CartService {
     this.updateStatus();
   }
 
-  //add product to cart
-  //check if product already exists in cart
-  //if exists, increment quantity
-  //else add new item to cart
-  //update total quantity and price
+  /**
+   * Add product to cart.
+   * Check if product already exists in cart.
+   * If exists, increment quantity.
+   * Else add new item to cart.
+   * Update total quantity and price.
+   * @param product
+   * @returns void
+   * @memberof CartService
+   */
   addToCart(product: Product): void {
     let alreadyExistsInCart: boolean = false;
     let existingCartItem: CartItem | undefined = undefined;
@@ -55,11 +69,16 @@ export class CartService {
     this.updateStatus();
   }
 
-  //remove product from cart
-  //check if product exists in cart
-  //if exists, decrement quantity
-  //if quantity is 0, remove item from cart
-  //update total quantity and price
+  /**
+   * Remove product from cart.
+   * Check if product exists in cart.
+   * If exists, decrement quantity.
+   * If quantity is 0, remove item from cart.
+   * Update total quantity and price.
+   * @param product
+   * @returns void
+   * @memberof CartService
+   */
   removeFromCart(product: Product): void {
     let existingCartItem: CartItem | null = null;
     for (let item of this._cartItems) {
@@ -77,9 +96,13 @@ export class CartService {
     this.updateStatus();
   }
 
-  //get total quantity
-  //loop through cart items and calculate total quantity
-  //publish the new total quantity to all subscribers
+  /**
+   * Get total quantity
+   * Loop through cart items and calculate total quantity
+   * Publish the new total quantity to all subscribers
+   * @returns Observable<number>
+   * @memberof CartService
+   */
   getTotalQuantity(): Observable<number> {
     let totalQuantity: number = 0;
     for (let item of this._cartItems) {
@@ -89,9 +112,13 @@ export class CartService {
     return this._totalQuantitySubject.asObservable();
   }
 
-  //get total price
-  //loop through cart items and calculate total price
-  //publish the new total price to all subscribers
+  /**
+   * Get total price
+   * Loop through cart items and calculate total price
+   * Publish the new total price to all subscribers
+   * @returns Observable<number>
+   * @memberof CartService
+   */
   getTotalPrice(): Observable<number> {
     let totalPrice: number = 0;
     for (let item of this._cartItems) {
@@ -101,11 +128,21 @@ export class CartService {
     return this._totalPriceSubject.asObservable();
   }
 
+  /**
+   * Update total quantity and price
+   * @private
+   * @memberof CartService
+   */
   private updateStatus(): void {
     this.getTotalPrice();
     this.getTotalQuantity();
   }
 
+  /**
+   * Clear cart
+   * @returns void
+   * @memberof CartService
+   */
   clearCart(): void {
     this._cartItems = [];
   }

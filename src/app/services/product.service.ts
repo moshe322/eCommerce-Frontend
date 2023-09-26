@@ -12,12 +12,16 @@ export class ProductService {
   private baseUrl = 'http://localhost:8080/api/products';
   private categoryUrl = 'http://localhost:8080/api/product-category';
 
-  //inject HttpClient
   constructor(private httpClient: HttpClient) {}
 
-  //get products
-  //if category is selected, get products by category
-  //if category is not selected, get all products aka category id = 0
+  /**
+   * Get products.
+   * If category is selected, get products by category.
+   * If category is not selected, get all products aka category id = 0.
+   * @param categoryId
+   * @returns Observable<Product[]>
+   * @memberof ProductService
+   */
   getProductList(categoryId: number): Observable<Product[]> {
     let searchUrl = this.baseUrl;
     if (categoryId != 0) {
@@ -28,9 +32,16 @@ export class ProductService {
       .pipe(map((response) => response._embedded.products));
   }
 
-  //get products using pagination
-  //if category is selected, get products by category using pagination
-  //if category is not selected, get all products using pagination aka category id = 0
+  /**
+   * Get products using pagination.
+   * If category is selected, get products by category using pagination.
+   * If category is not selected, get all products using pagination aka category id = 0.
+   * @param page
+   * @param size
+   * @param categoryId
+   * @returns Observable<GetResponseProducts>
+   * @memberof ProductService
+   */
   getProductListPaginate(
     page: number,
     size: number,
@@ -43,14 +54,25 @@ export class ProductService {
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
-  //get categories
+  /**
+   * Get product categories.
+   * @returns Observable<ProductCategory[]>
+   * @memberof ProductService
+   */
   getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient
       .get<GetResponseProductCategory>(this.categoryUrl)
       .pipe(map((response) => response._embedded.productCategory));
   }
 
-  //get products using keyword and pagination
+  /**
+   * Get products using keyword and pagination.
+   * @param page
+   * @param size
+   * @param keyword
+   * @returns Observable<GetResponseProducts>
+   * @memberof ProductService
+   */
   getSearchProductsPaginate(
     page: number,
     size: number,
@@ -60,16 +82,23 @@ export class ProductService {
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
-  //get a single product using product id
+  /**
+   * Get a single product using product id.
+   * @param productId
+   * @returns Observable<Product>
+   * @memberof ProductService
+   */
   getProduct(productId: number): Observable<Product> {
     const searchUrl = `${this.baseUrl}/${productId}`;
     return this.httpClient.get<Product>(searchUrl);
   }
 }
 
-//unwraps the JSON from Spring Data REST
-//_embedded is the JSON array of products
-//page is the metadata
+/**
+ * Unwraps the JSON from Spring Data REST.
+ * _embedded is the JSON array of products.
+ * page is the metadata.
+ */
 interface GetResponseProducts {
   _embedded: {
     products: Product[];
@@ -82,7 +111,9 @@ interface GetResponseProducts {
   };
 }
 
-//unwraps the JSON from Spring Data REST
+/**
+ * Unwraps the JSON from Spring Data REST.
+ */
 interface GetResponseProductCategory {
   _embedded: {
     productCategory: ProductCategory[];

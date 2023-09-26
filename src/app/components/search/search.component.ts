@@ -13,6 +13,11 @@ export class SearchComponent {
     this._router = router;
   }
 
+  /**
+   * Route to search page with keyword.
+   * @param keyword
+   * @memberof SearchComponent
+   */
   search(keyword: string): void {
     this._router.navigateByUrl(`/search/${keyword}`);
   }
