@@ -13,7 +13,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('500ms', style({ opacity: 1 })),
+        animate('700ms', style({ opacity: 1 })),
       ]),
     ]),
   ],
@@ -28,7 +28,7 @@ export class ProductListComponent implements OnInit {
   previousKeyword: string = '';
 
   pageNumber: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 8;
   totalElements: number = 0;
 
   constructor(
@@ -76,7 +76,7 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe(this.processData());
     this.setCategoryName('Search results for: ' + this.keyword);
-    //this.scrollUp();
+    this.scrollUp();
   }
 
   /**
@@ -116,7 +116,7 @@ export class ProductListComponent implements OnInit {
         )
         .subscribe(this.processData());
     });
-    //this.scrollUp();
+    this.scrollUp();
   }
 
   /**
