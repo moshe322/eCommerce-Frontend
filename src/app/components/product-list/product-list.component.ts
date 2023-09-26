@@ -3,11 +3,20 @@ import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
@@ -45,6 +54,10 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  trackByProductId(index: number, product: Product): number {
+    return product.id;
+  }
+
   /**
    * Search products using keyword.
    * @memberof ProductListComponent
@@ -63,7 +76,7 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe(this.processData());
     this.setCategoryName('Search results for: ' + this.keyword);
-    this.scrollUp();
+    //this.scrollUp();
   }
 
   /**
@@ -103,7 +116,7 @@ export class ProductListComponent implements OnInit {
         )
         .subscribe(this.processData());
     });
-    this.scrollUp();
+    //this.scrollUp();
   }
 
   /**
@@ -131,7 +144,7 @@ export class ProductListComponent implements OnInit {
     } else {
       this.listProducts();
     }
-    this.scrollUp();
+    //this.scrollUp();
   }
 
   /**
