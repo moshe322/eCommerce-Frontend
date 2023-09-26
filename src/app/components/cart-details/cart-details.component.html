@@ -59,6 +59,7 @@
         <td colspan="3" class="totals">
           <p>Total Quantity: {{ totalQuantity }}</p>
           <p>Total Price: {{ totalPrice | currency : "USD" }}</p>
+          <button routerLink="/checkout" class="btn btn-success btn-sm">Checkout</button>
         </td>
       </tr>
     </tbody>
