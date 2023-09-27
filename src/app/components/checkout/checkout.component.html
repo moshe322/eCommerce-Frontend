@@ -11,6 +11,19 @@
           placeholder="First name"
           formControlName="firstName"
         />
+        <div
+          *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
+        >
+          <p class="alert alert-danger" *ngIf="firstName?.errors?.['required']">
+            First name is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="firstName?.errors?.['minlength']"
+          >
+            First name must be at least 2 characters long.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="inputLast">Last Name</label>
@@ -21,6 +34,16 @@
           placeholder="Last name"
           formControlName="lastName"
         />
+        <div
+          *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+        >
+          <p class="alert alert-danger" *ngIf="lastName?.errors?.['required']">
+            Last name is required.
+          </p>
+          <p class="alert alert-danger" *ngIf="lastName?.errors?.['minlength']">
+            Last name must be at least 2 characters long.
+          </p>
+        </div>
       </div>
     </div>
     <div class="form-group mt-2">
@@ -32,6 +55,14 @@
         placeholder="Email"
         formControlName="email"
       />
+      <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+        <p class="alert alert-danger" *ngIf="email?.errors?.['required']">
+          Email is required.
+        </p>
+        <p class="alert alert-danger" *ngIf="email?.errors?.['pattern']">
+          Email address is not valid.
+        </p>
+      </div>
     </div>
   </div>
   <div formGroupName="shippingAddress" class="mt-5">
@@ -45,6 +76,25 @@
         placeholder="Street"
         formControlName="street"
       />
+      <div
+        *ngIf="
+          shippingStreet?.invalid &&
+          (shippingStreet?.dirty || shippingStreet?.touched)
+        "
+      >
+        <p
+          class="alert alert-danger"
+          *ngIf="shippingStreet?.errors?.['required']"
+        >
+          Street is required.
+        </p>
+        <p
+          class="alert alert-danger"
+          *ngIf="shippingStreet?.errors?.['minlength']"
+        >
+          Street must be at least 2 characters long.
+        </p>
+      </div>
     </div>
     <div class="form-group row mt-2">
       <div class="col">
@@ -61,6 +111,19 @@
             {{ country.name }}
           </option>
         </select>
+        <div
+          *ngIf="
+            shippingCountry?.invalid &&
+            (shippingCountry?.dirty || shippingCountry?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="shippingCountry?.errors?.['required']"
+          >
+            Country is required.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="state">State</label>
@@ -81,6 +144,25 @@
           placeholder="City"
           formControlName="city"
         />
+        <div
+          *ngIf="
+            shippingCity?.invalid &&
+            (shippingCity?.dirty || shippingCity?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="shippingCity?.errors?.['required']"
+          >
+            City is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="shippingCity?.errors?.['minlength']"
+          >
+            City must be at least 2 characters long.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="zip">Zip Code</label>
@@ -91,6 +173,25 @@
           placeholder="Zip Code"
           formControlName="zipCode"
         />
+        <div
+          *ngIf="
+            shippingZipCode?.invalid &&
+            (shippingZipCode?.dirty || shippingZipCode?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="shippingZipCode?.errors?.['required']"
+          >
+            Zip Code is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="shippingZipCode?.errors?.['minlength']"
+          >
+            Zip Code must be at least 2 characters long.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -117,6 +218,25 @@
         placeholder="Street"
         formControlName="street"
       />
+      <div
+        *ngIf="
+          billingStreet?.invalid &&
+          (billingStreet?.dirty || billingStreet?.touched)
+        "
+      >
+        <p
+          class="alert alert-danger"
+          *ngIf="billingStreet?.errors?.['required']"
+        >
+          Street is required.
+        </p>
+        <p
+          class="alert alert-danger"
+          *ngIf="billingStreet?.errors?.['minlength']"
+        >
+          Street must be at least 2 characters long.
+        </p>
+      </div>
     </div>
     <div class="form-group row mt-2">
       <div class="col">
@@ -133,6 +253,19 @@
             {{ country.name }}
           </option>
         </select>
+        <div
+          *ngIf="
+            billingCountry?.invalid &&
+            (billingCountry?.dirty || billingCountry?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="billingCountry?.errors?.['required']"
+          >
+            Country is required.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="state">State</label>
@@ -153,6 +286,24 @@
           placeholder="City"
           formControlName="city"
         />
+        <div
+          *ngIf="
+            billingCity?.invalid && (billingCity?.dirty || billingCity?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="billingCity?.errors?.['required']"
+          >
+            City is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="billingCity?.errors?.['minlength']"
+          >
+            City must be at least 2 characters long.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="zip">Zip Code</label>
@@ -163,6 +314,25 @@
           placeholder="Zip Code"
           formControlName="zipCode"
         />
+        <div
+          *ngIf="
+            billingZipCode?.invalid &&
+            (billingZipCode?.dirty || billingZipCode?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="billingZipCode?.errors?.['required']"
+          >
+            Zip Code is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="billingZipCode?.errors?.['minlength']"
+          >
+            Zip Code must be at least 2 characters long.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -178,6 +348,24 @@
           placeholder="Name"
           formControlName="nameOnCard"
         />
+        <div
+          *ngIf="
+            nameOnCard?.invalid && (nameOnCard?.dirty || nameOnCard?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="nameOnCard?.errors?.['required']"
+          >
+            Name is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="nameOnCard?.errors?.['minlength']"
+          >
+            Name must be at least 2 characters long.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="type">Card Type</label>
@@ -185,6 +373,13 @@
           <option>Visa</option>
           <option>Mastercard</option>
         </select>
+        <div
+          *ngIf="cardType?.invalid && (cardType?.dirty || cardType?.touched)"
+        >
+          <p class="alert alert-danger" *ngIf="cardType?.errors?.['required']">
+            Card type is required.
+          </p>
+        </div>
       </div>
     </div>
     <div class="form-group row mt-2">
@@ -197,6 +392,21 @@
           placeholder="Card Number"
           formControlName="cardNumber"
         />
+        <div
+          *ngIf="
+            cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="cardNumber?.errors?.['required']"
+          >
+            Card number is required.
+          </p>
+          <p class="alert alert-danger" *ngIf="cardNumber?.errors?.['pattern']">
+            Card number must be 16 characters long.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="code">Security Code</label>
@@ -207,6 +417,25 @@
           placeholder="Security Code"
           formControlName="securityCode"
         />
+        <div
+          *ngIf="
+            securityCode?.invalid &&
+            (securityCode?.dirty || securityCode?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="securityCode?.errors?.['required']"
+          >
+            Security code is required.
+          </p>
+          <p
+            class="alert alert-danger"
+            *ngIf="securityCode?.errors?.['pattern']"
+          >
+            Security code must be 3 characters long.
+          </p>
+        </div>
       </div>
     </div>
     <div class="form-group row mt-2">
@@ -217,6 +446,19 @@
             {{ month }}
           </option>
         </select>
+        <div
+          *ngIf="
+            expirationMonth?.invalid &&
+            (expirationMonth?.dirty || expirationMonth?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="expirationMonth?.errors?.['required']"
+          >
+            Expiration month is required.
+          </p>
+        </div>
       </div>
       <div class="col">
         <label for="year">Expiration Year</label>
@@ -229,6 +471,19 @@
             {{ year }}
           </option>
         </select>
+        <div
+          *ngIf="
+            expirationYear?.invalid &&
+            (expirationYear?.dirty || expirationYear?.touched)
+          "
+        >
+          <p
+            class="alert alert-danger"
+            *ngIf="expirationYear?.errors?.['required']"
+          >
+            Expiration year is required.
+          </p>
+        </div>
       </div>
     </div>
   </div>
