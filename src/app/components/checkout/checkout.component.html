@@ -49,28 +49,25 @@
     <div class="form-group row mt-2">
       <div class="col">
         <label for="country">Country</label>
-        <!-- <input
-          type="text"
-          id="country"
-          class="form-control"
-          placeholder="Country"
+        <select
+          class="form-select"
           formControlName="country"
-        /> -->
-        <select class="form-select" formControlName="country">
-          <option value="">Choose...</option>
+          (change)="changeStates(1)"
+        >
+          <option
+            *ngFor="let country of countries"
+            value="{{ country.isoCode }}"
+          >
+            {{ country.name }}
+          </option>
         </select>
       </div>
       <div class="col">
         <label for="state">State</label>
-        <!-- <input
-          type="text"
-          id="state"
-          class="form-control"
-          placeholder="State"
-          formControlName="state"
-        /> -->
         <select class="form-select" formControlName="state">
-          <option value="">Choose...</option>
+          <option *ngFor="let state of statesShipping" value="{{ state.name }}">
+            {{ state.name }}
+          </option>
         </select>
       </div>
     </div>
@@ -97,7 +94,7 @@
       </div>
     </div>
   </div>
-  <div class="form-check">
+  <div class="form-check mt-2">
     <input
       class="form-check-input"
       type="checkbox"
@@ -124,28 +121,25 @@
     <div class="form-group row mt-2">
       <div class="col">
         <label for="country">Country</label>
-        <!-- <input
-          type="text"
-          id="country"
-          class="form-control"
-          placeholder="Country"
+        <select
+          class="form-select"
           formControlName="country"
-        /> -->
-        <select class="form-select" formControlName="country">
-          <option value="">Choose...</option>
+          (change)="changeStates(2)"
+        >
+          <option
+            *ngFor="let country of countries"
+            value="{{ country.isoCode }}"
+          >
+            {{ country.name }}
+          </option>
         </select>
       </div>
       <div class="col">
         <label for="state">State</label>
-        <!-- <input
-          type="text"
-          id="state"
-          class="form-control"
-          placeholder="State"
-          formControlName="state"
-        /> -->
         <select class="form-select" formControlName="state">
-          <option value="">Choose...</option>
+          <option *ngFor="let state of statesBilling" value="{{ state.name }}">
+            {{ state.name }}
+          </option>
         </select>
       </div>
     </div>
@@ -218,23 +212,23 @@
     <div class="form-group row mt-2">
       <div class="col">
         <label for="month">Expiration Month</label>
-        <input
-          type="number"
-          id="month"
-          class="form-control"
-          placeholder="Expiration Month"
-          formControlName="expirationMonth"
-        />
+        <select class="form-select" formControlName="expirationMonth">
+          <option *ngFor="let month of months" value="{{ month }}">
+            {{ month }}
+          </option>
+        </select>
       </div>
       <div class="col">
         <label for="year">Expiration Year</label>
-        <input
-          type="number"
-          id="year"
-          class="form-control"
-          placeholder="Expiration Year"
+        <select
+          class="form-select"
           formControlName="expirationYear"
-        />
+          (change)="changeMonthsByYear()"
+        >
+          <option *ngFor="let year of years" value="{{ year }}">
+            {{ year }}
+          </option>
+        </select>
       </div>
     </div>
   </div>
