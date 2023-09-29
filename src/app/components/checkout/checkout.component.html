@@ -19,7 +19,7 @@
           </p>
           <p
             class="alert alert-danger"
-            *ngIf="firstName?.errors?.['minlength']"
+            *ngIf="firstName?.errors?.['minlength'] || firstName?.errors?.['noSpaceAlowed']"
           >
             First name must be at least 2 characters long.
           </p>
@@ -40,7 +40,10 @@
           <p class="alert alert-danger" *ngIf="lastName?.errors?.['required']">
             Last name is required.
           </p>
-          <p class="alert alert-danger" *ngIf="lastName?.errors?.['minlength']">
+          <p
+            class="alert alert-danger"
+            *ngIf="lastName?.errors?.['minlength'] || lastName?.errors?.['noSpaceAlowed']"
+          >
             Last name must be at least 2 characters long.
           </p>
         </div>
@@ -90,7 +93,7 @@
         </p>
         <p
           class="alert alert-danger"
-          *ngIf="shippingStreet?.errors?.['minlength']"
+          *ngIf="shippingStreet?.errors?.['minlength'] || shippingStreet?.errors?.['noSpaceAlowed']"
         >
           Street must be at least 2 characters long.
         </p>
@@ -158,7 +161,7 @@
           </p>
           <p
             class="alert alert-danger"
-            *ngIf="shippingCity?.errors?.['minlength']"
+            *ngIf="shippingCity?.errors?.['minlength'] || shippingCity?.errors?.['noSpaceAlowed']"
           >
             City must be at least 2 characters long.
           </p>
@@ -187,7 +190,7 @@
           </p>
           <p
             class="alert alert-danger"
-            *ngIf="shippingZipCode?.errors?.['minlength']"
+            *ngIf="shippingZipCode?.errors?.['minlength'] || shippingZipCode?.errors?.['noSpaceAlowed']"
           >
             Zip Code must be at least 2 characters long.
           </p>
@@ -232,7 +235,7 @@
         </p>
         <p
           class="alert alert-danger"
-          *ngIf="billingStreet?.errors?.['minlength']"
+          *ngIf="billingStreet?.errors?.['minlength'] || billingStreet?.errors?.['noSpaceAlowed']"
         >
           Street must be at least 2 characters long.
         </p>
@@ -299,7 +302,7 @@
           </p>
           <p
             class="alert alert-danger"
-            *ngIf="billingCity?.errors?.['minlength']"
+            *ngIf="billingCity?.errors?.['minlength'] || billingCity?.errors?.['noSpaceAlowed']"
           >
             City must be at least 2 characters long.
           </p>
@@ -328,7 +331,7 @@
           </p>
           <p
             class="alert alert-danger"
-            *ngIf="billingZipCode?.errors?.['minlength']"
+            *ngIf="billingZipCode?.errors?.['minlength'] || billingZipCode?.errors?.['noSpaceAlowed']"
           >
             Zip Code must be at least 2 characters long.
           </p>
@@ -361,7 +364,7 @@
           </p>
           <p
             class="alert alert-danger"
-            *ngIf="nameOnCard?.errors?.['minlength']"
+            *ngIf="nameOnCard?.errors?.['minlength'] || nameOnCard?.errors?.['noSpaceAlowed']"
           >
             Name must be at least 2 characters long.
           </p>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { WhiteSpace } from 'src/app/validators/white-space';
 import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
 import { Country, State } from 'country-state-city';
@@ -45,8 +46,22 @@ export class CheckoutComponent implements OnInit {
     this.setCartDetails();
     this.checkoutFormGroup = this._formBuilder.group({
       customer: this._formBuilder.group({
-        firstName: ['', [Validators.required, Validators.minLength(2)]],
-        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        firstName: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
+        lastName: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
         email: [
           '',
           [
@@ -56,22 +71,71 @@ export class CheckoutComponent implements OnInit {
         ],
       }),
       shippingAddress: this._formBuilder.group({
-        street: ['', [Validators.required, Validators.minLength(2)]],
-        city: ['', [Validators.required, Validators.minLength(2)]],
+        street: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
+        city: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
         state: [''],
         country: ['', Validators.required],
-        zipCode: ['', [Validators.required, Validators.minLength(2)]],
+        zipCode: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
       }),
       billingAddress: this._formBuilder.group({
-        street: ['', [Validators.required, Validators.minLength(2)]],
-        city: ['', [Validators.required, Validators.minLength(2)]],
+        street: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
+        city: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
         state: [''],
         country: ['', Validators.required],
-        zipCode: ['', [Validators.required, Validators.minLength(2)]],
+        zipCode: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
       }),
       creditCard: this._formBuilder.group({
         cardType: ['', Validators.required],
-        nameOnCard: ['', [Validators.required, Validators.minLength(2)]],
+        nameOnCard: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            WhiteSpace.noSpaceAlowed,
+          ],
+        ],
         cardNumber: [
           '',
           [Validators.required, Validators.pattern('[0-9]{16}')],
