@@ -18,6 +18,8 @@ export class CheckoutComponent implements OnInit {
   private _cartService: CartService;
   private _formService: FormService;
 
+  isSubmitted: boolean = false;
+
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -215,14 +217,29 @@ export class CheckoutComponent implements OnInit {
    * @memberof CheckoutComponent
    */
   onSubmit() {
+    this.isSubmitted = true;
     console.log('Handling the submit button');
     console.log(this.checkoutFormGroup.get('customer')?.value);
     console.log(this.checkoutFormGroup.get('shippingAddress')?.value);
     console.log(this.checkoutFormGroup.get('billingAddress')?.value);
     console.log(this.checkoutFormGroup.get('creditCard')?.value);
     if (this.checkoutFormGroup.valid) {
-      this.checkoutFormGroup.markAllAsTouched();
+      console.log('Valid');
+    } else {
+      this.scrollToError();
     }
+  }
+
+  /**
+   * Scroll to first element with error.
+   * @private
+   * @memberof CartDetailsComponent
+   */
+  private scrollToError(): void {
+    const firstElementWithError = document.querySelector(
+      'form .ng-invalid'
+    ) as HTMLElement;
+    firstElementWithError.scrollIntoView({ behavior: 'smooth' });
   }
 
   /**
