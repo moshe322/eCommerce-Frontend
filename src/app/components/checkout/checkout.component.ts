@@ -5,6 +5,11 @@ import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
 import { Country, State } from 'country-state-city';
 import { ICountry, IState } from 'country-state-city';
+import { CheckoutService } from 'src/app/services/checkout.service';
+import { Router } from '@angular/router';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 
 @Component({
   selector: 'app-checkout',
@@ -17,6 +22,8 @@ export class CheckoutComponent implements OnInit {
   private _formBuilder: FormBuilder;
   private _cartService: CartService;
   private _formService: FormService;
+  private _checkoutService: CheckoutService;
+  private _router: Router;
 
   isSubmitted: boolean = false;
 
@@ -30,10 +37,18 @@ export class CheckoutComponent implements OnInit {
   statesShipping: IState[] = [];
   statesBilling: IState[] = [];
 
-  constructor(formBuilder: FormBuilder, cartService: CartService) {
+  constructor(
+    formBuilder: FormBuilder,
+    cartService: CartService,
+    formService: FormService,
+    checkoutService: CheckoutService,
+    route: Router
+  ) {
     this._formBuilder = formBuilder;
     this._cartService = cartService;
-    this._formService = new FormService();
+    this._formService = formService;
+    this._checkoutService = checkoutService;
+    this._router = route;
   }
 
   /**
@@ -213,21 +228,53 @@ export class CheckoutComponent implements OnInit {
   }
 
   /**
-   * TODO: Handle the submit button.
+   * Handle submit button.
+   * If form is valid, place order.
+   * Else scroll to first element with error.
    * @memberof CheckoutComponent
    */
   onSubmit() {
     this.isSubmitted = true;
-    console.log('Handling the submit button');
-    console.log(this.checkoutFormGroup.get('customer')?.value);
-    console.log(this.checkoutFormGroup.get('shippingAddress')?.value);
-    console.log(this.checkoutFormGroup.get('billingAddress')?.value);
-    console.log(this.checkoutFormGroup.get('creditCard')?.value);
     if (this.checkoutFormGroup.valid) {
-      console.log('Valid');
+      let order = new Order(this.totalQuantity, this.totalPrice);
+
+      let orderItems = this._cartService.cartItems.map(
+        (item) => new OrderItem(item)
+      );
+
+      let purchase = new Purchase(
+        this.checkoutFormGroup.controls['customer'].value,
+        this.checkoutFormGroup.controls['shippingAddress'].value,
+        this.checkoutFormGroup.controls['billingAddress'].value,
+        order,
+        orderItems
+      );
+      this._checkoutService.placeOrder(purchase).subscribe({
+        next: (response) => {
+          alert(
+            `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
+          );
+          this.resetCart();
+        },
+        error: (err) => {
+          alert(`There was an error: ${err.message}`);
+        },
+      });
     } else {
       this.scrollToError();
     }
+  }
+
+  /**
+   * Reset cart.
+   * @private
+   * @memberof CartDetailsComponent
+   */
+  private resetCart() {
+    this._cartService.clearCart();
+    this.checkoutFormGroup.reset();
+    this.isSubmitted = false;
+    this._router.navigateByUrl('/products');
   }
 
   /**

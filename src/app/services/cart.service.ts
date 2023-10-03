@@ -145,5 +145,7 @@ export class CartService {
    */
   clearCart(): void {
     this._cartItems = [];
+    this._totalPriceSubject.next(0);
+    this._totalQuantitySubject.next(0);
   }
 }
