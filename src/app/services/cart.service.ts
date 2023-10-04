@@ -11,6 +11,25 @@ export class CartService {
   private _totalQuantitySubject = new BehaviorSubject<number>(0);
   private _totalPriceSubject = new BehaviorSubject<number>(0);
 
+  storage: Storage = sessionStorage;
+
+  constructor() {
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
+    if (data != null) {
+      this._cartItems = data;
+      this.updateStatus();
+    }
+  }
+
+  /**
+   * Save cart items to session storage
+   * @private
+   * @memberof CartService
+   */
+  private saveCartItems(): void {
+    this.storage.setItem('cartItems', JSON.stringify(this._cartItems));
+  }
+
   /**
    * Get cart items
    * @returns CartItem[]
@@ -136,6 +155,7 @@ export class CartService {
   private updateStatus(): void {
     this.getTotalPrice();
     this.getTotalQuantity();
+    this.saveCartItems();
   }
 
   /**
