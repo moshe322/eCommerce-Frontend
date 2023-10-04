@@ -4,14 +4,22 @@
   <div class="header">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-md-6">
-          <h1>eCommerce App</h1>
+        <div class="col-md-5">
+          <h1 *ngIf="auth.user$ | async as user; else default">
+            Welcome {{ user.nickname }}
+          </h1>
+          <ng-template #default>
+            <h1>eCommerce App</h1>
+          </ng-template>
         </div>
         <div class="col-md-4">
           <app-search></app-search>
         </div>
         <div class="col-md-2">
           <app-cart-status></app-cart-status>
+        </div>
+        <div class="col-md-1">
+          <app-login></app-login>
         </div>
       </div>
     </div>
