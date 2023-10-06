@@ -285,10 +285,10 @@ export class CheckoutComponent implements OnInit {
    * @memberof CartDetailsComponent
    */
   private resetCart() {
+    localStorage.clear();
     this._cartService.clearCart();
     this.checkoutFormGroup.reset();
     this.isSubmitted = false;
-    localStorage.clear();
     this._router.navigateByUrl('/products');
   }
 
