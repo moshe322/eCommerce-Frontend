@@ -1,19 +1,21 @@
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-  <button
-    class="btn btn-secondary rounded"
-    (click)="
-      auth.logout({ logoutParams: { returnTo: document.location.origin } })
-    "
-  >
-    Log out
-  </button>
+  <div class="d-flex justify-content-evenly">
+    <button class="btn btn-secondary rounded" routerLink="/order-history">
+      Orders
+    </button>
+    <button
+      class="btn btn-secondary rounded"
+      (click)="
+        auth.logout({ logoutParams: { returnTo: document.location.origin } })
+      "
+    >
+      Log out
+    </button>
+  </div>
 </ng-container>
 
 <ng-template #loggedOut>
-  <button
-    class="btn btn-secondary rounded"
-    (click)="auth.loginWithRedirect()"
-  >
+  <button class="btn btn-secondary rounded" (click)="auth.loginWithRedirect()">
     Log in
   </button>
 </ng-template>
