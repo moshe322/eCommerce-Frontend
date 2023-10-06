@@ -1,1 +1,18 @@
-<p>order-history works!</p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th style="width: 20%">Tracking Number</th>
+      <th style="width: 10%">Total Price</th>
+      <th style="width: 10%">Total Quantity</th>
+      <th style="width: 10%">Date Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orderHistoryList">
+      <td>{{ order.orderTrackingNumber }}</td>
+      <td>{{ order.totalPrice | currency : "USD" }}</td>
+      <td>{{ order.totalQuantity }}</td>
+      <td>{{ order.dateCreated | date : "medium" }}</td>
+    </tr>
+  </tbody>
+</table>

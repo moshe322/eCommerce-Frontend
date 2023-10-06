@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
 import { Purchase } from 'src/app/common/purchase';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-checkout',
@@ -24,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   private _formService: FormService;
   private _checkoutService: CheckoutService;
   private _router: Router;
+  private _auth: AuthService;
 
   isSubmitted: boolean = false;
 
@@ -42,13 +44,15 @@ export class CheckoutComponent implements OnInit {
     cartService: CartService,
     formService: FormService,
     checkoutService: CheckoutService,
-    route: Router
+    route: Router,
+    auth: AuthService
   ) {
     this._formBuilder = formBuilder;
     this._cartService = cartService;
     this._formService = formService;
     this._checkoutService = checkoutService;
     this._router = route;
+    this._auth = auth;
   }
 
   /**
@@ -165,6 +169,16 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['', Validators.required],
       }),
     });
+
+    this._auth.user$.subscribe((data) => {
+      if (data) {
+        this.checkoutFormGroup.controls['customer'].setValue({
+          firstName: '',
+          lastName: '',
+          email: data.email,
+        });
+      }
+    });
   }
 
   /**
@@ -274,6 +288,7 @@ export class CheckoutComponent implements OnInit {
     this._cartService.clearCart();
     this.checkoutFormGroup.reset();
     this.isSubmitted = false;
+    localStorage.clear();
     this._router.navigateByUrl('/products');
   }
 
