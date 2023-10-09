@@ -14,3 +14,12 @@ Frontend code for the eCommerce App project, using Angular
 ## Resources:
 - [Angular.io](https://angular.io/)
 - [Okta](https://www.okta.com/)
+
+### Tips:
+How to create SSL certificate for localhost:
+```
+mkdir ssl-localhost
+```
+```
+openssl req -x509 -out ssl-localhost\localhost.crt -keyout ssl-localhost\localhost.key -newkey rsa:2048 -nodes -sha256 -days 365 -config localhost.conf
+```
