@@ -31,6 +31,8 @@ export class CheckoutComponent implements OnInit {
 
   isSubmitted: boolean = false;
 
+  isPurchaseDisabled: boolean = false;
+
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -260,6 +262,8 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     if (this.checkoutFormGroup.valid && this.displayError === '') {
+      this.isPurchaseDisabled = true;
+
       let order = new Order(this.totalQuantity, this.totalPrice);
 
       let orderItems = this._cartService.cartItems.map(
@@ -285,6 +289,20 @@ export class CheckoutComponent implements OnInit {
               {
                 payment_method: {
                   card: this.cardElement,
+                  billing_details: {
+                    email: purchase.customer.email,
+                    name:
+                      purchase.customer.firstName +
+                      ' ' +
+                      purchase.customer.lastName,
+                    address: {
+                      line1: purchase.billingAddress.street,
+                      city: purchase.billingAddress.city,
+                      state: purchase.billingAddress.state,
+                      postal_code: purchase.billingAddress.zipCode,
+                      country: purchase.billingAddress.country,
+                    },
+                  },
                 },
               },
               { handleActions: false }
@@ -292,6 +310,7 @@ export class CheckoutComponent implements OnInit {
             .then((result: { error: { message: string } }) => {
               if (result.error) {
                 alert('There was an error: ' + result.error.message);
+                this.isPurchaseDisabled = false;
               } else {
                 this._checkoutService.placeOrder(purchase).subscribe({
                   next: (response) => {
@@ -299,9 +318,11 @@ export class CheckoutComponent implements OnInit {
                       `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
                     );
                     this.resetCart();
+                    this.isPurchaseDisabled = false;
                   },
                   error: (err) => {
                     alert(`There was an error: ${err.message}`);
+                    this.isPurchaseDisabled = false;
                   },
                 });
               }
