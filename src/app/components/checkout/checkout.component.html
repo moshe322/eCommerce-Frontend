@@ -362,169 +362,19 @@
       </div>
     </div>
   </div>
+
   <div formGroupName="creditCard" class="mt-5">
     <h3>Credit Card</h3>
-    <div class="form-group row">
-      <div class="col">
-        <label for="name">Name<span style="color: red">*</span></label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          placeholder="Name"
-          formControlName="nameOnCard"
-        />
-        <div
-          *ngIf="
-            isSubmitted ||
-            (nameOnCard?.invalid && (nameOnCard?.dirty || nameOnCard?.touched))
-          "
-        >
-          <p
-            class="alert alert-danger"
-            *ngIf="nameOnCard?.errors?.['required']"
-          >
-            Name is required.
-          </p>
-          <p
-            class="alert alert-danger"
-            *ngIf="nameOnCard?.errors?.['minlength'] || nameOnCard?.errors?.['noSpaceAlowed']"
-          >
-            Name must be at least 2 characters long.
-          </p>
-        </div>
-      </div>
-      <div class="col">
-        <label for="type">Card Type<span style="color: red">*</span></label>
-        <select class="form-select" formControlName="cardType">
-          <option>Visa</option>
-          <option>Mastercard</option>
-        </select>
-        <div
-          *ngIf="
-            isSubmitted ||
-            (cardType?.invalid && (cardType?.dirty || cardType?.touched))
-          "
-        >
-          <p class="alert alert-danger" *ngIf="cardType?.errors?.['required']">
-            Card type is required.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row mt-2">
-      <div class="col">
-        <label for="number">Card Number<span style="color: red">*</span></label>
-        <input
-          type="number"
-          id="number"
-          class="form-control"
-          placeholder="Card Number"
-          formControlName="cardNumber"
-        />
-        <div
-          *ngIf="
-            isSubmitted ||
-            (cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched))
-          "
-        >
-          <p
-            class="alert alert-danger"
-            *ngIf="cardNumber?.errors?.['required']"
-          >
-            Card number is required.
-          </p>
-          <p class="alert alert-danger" *ngIf="cardNumber?.errors?.['pattern']">
-            Card number must be 16 characters long.
-          </p>
-        </div>
-      </div>
-      <div class="col">
-        <label for="code">Security Code<span style="color: red">*</span></label>
-        <input
-          type="number"
-          id="code"
-          class="form-control"
-          placeholder="Security Code"
-          formControlName="securityCode"
-        />
-        <div
-          *ngIf="
-            isSubmitted ||
-            (securityCode?.invalid &&
-              (securityCode?.dirty || securityCode?.touched))
-          "
-        >
-          <p
-            class="alert alert-danger"
-            *ngIf="securityCode?.errors?.['required']"
-          >
-            Security code is required.
-          </p>
-          <p
-            class="alert alert-danger"
-            *ngIf="securityCode?.errors?.['pattern']"
-          >
-            Security code must be 3 characters long.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row mt-2">
-      <div class="col">
-        <label for="month"
-          >Expiration Month<span style="color: red">*</span></label
-        >
-        <select class="form-select" formControlName="expirationMonth">
-          <option *ngFor="let month of months" value="{{ month }}">
-            {{ month }}
-          </option>
-        </select>
-        <div
-          *ngIf="
-            isSubmitted ||
-            (expirationMonth?.invalid &&
-              (expirationMonth?.dirty || expirationMonth?.touched))
-          "
-        >
-          <p
-            class="alert alert-danger"
-            *ngIf="expirationMonth?.errors?.['required']"
-          >
-            Expiration month is required.
-          </p>
-        </div>
-      </div>
-      <div class="col">
-        <label for="year"
-          >Expiration Year<span style="color: red">*</span></label
-        >
-        <select
-          class="form-select"
-          formControlName="expirationYear"
-          (change)="changeMonthsByYear()"
-        >
-          <option *ngFor="let year of years" value="{{ year }}">
-            {{ year }}
-          </option>
-        </select>
-        <div
-          *ngIf="
-            isSubmitted ||
-            (expirationYear?.invalid &&
-              (expirationYear?.dirty || expirationYear?.touched))
-          "
-        >
-          <p
-            class="alert alert-danger"
-            *ngIf="expirationYear?.errors?.['required']"
-          >
-            Expiration year is required.
-          </p>
-        </div>
-      </div>
+    <div id="card-element"></div>
+    <div
+      *ngIf="displayError !== ''"
+      id="card-errors"
+      class="alert alert-danger"
+    >
+      {{ displayError }}
     </div>
   </div>
+
   <div class="mt-5">
     <h3>Review Your Order</h3>
     <div>

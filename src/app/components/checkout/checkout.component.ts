@@ -11,6 +11,8 @@ import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
 import { Purchase } from 'src/app/common/purchase';
 import { AuthService } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
+import { PaymentInfo } from 'src/app/common/payment-info';
 
 @Component({
   selector: 'app-checkout',
@@ -39,6 +41,11 @@ export class CheckoutComponent implements OnInit {
   statesShipping: IState[] = [];
   statesBilling: IState[] = [];
 
+  stripe = Stripe(environment.stripePublicKey);
+  paymentInfo: PaymentInfo = new PaymentInfo();
+  cardElement: any;
+  displayError: String = '';
+
   constructor(
     formBuilder: FormBuilder,
     cartService: CartService,
@@ -61,9 +68,10 @@ export class CheckoutComponent implements OnInit {
    * @memberof CheckoutComponent
    */
   ngOnInit(): void {
+    this.setupStripeForm();
     this.loadCountries();
-    this.loadMonths(new Date().getMonth() + 1);
-    this.loadYears();
+    // this.loadMonths(new Date().getMonth() + 1);
+    // this.loadYears();
     this.setCartDetails();
     this.checkoutFormGroup = this._formBuilder.group({
       customer: this._formBuilder.group({
@@ -148,6 +156,7 @@ export class CheckoutComponent implements OnInit {
         ],
       }),
       creditCard: this._formBuilder.group({
+        /*
         cardType: ['', Validators.required],
         nameOnCard: [
           '',
@@ -167,6 +176,7 @@ export class CheckoutComponent implements OnInit {
         ],
         expirationMonth: ['', Validators.required],
         expirationYear: ['', Validators.required],
+        */
       }),
     });
 
@@ -222,24 +232,24 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  /**
-   * Change months.
-   * If selected year is current year, start month is current month.
-   * Else start month is 1.
-   * @memberof CheckoutComponent
-   */
-  changeMonthsByYear() {
-    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
-    const selectedYear: number = creditCardFormGroup?.value.expirationYear;
-    const currentYear: number = new Date().getFullYear();
-    let startMonth: number = 1;
+  // /**
+  //  * Change months.
+  //  * If selected year is current year, start month is current month.
+  //  * Else start month is 1.
+  //  * @memberof CheckoutComponent
+  //  */
+  // changeMonthsByYear() {
+  //   const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+  //   const selectedYear: number = creditCardFormGroup?.value.expirationYear;
+  //   const currentYear: number = new Date().getFullYear();
+  //   let startMonth: number = 1;
 
-    if (selectedYear == currentYear) {
-      startMonth = new Date().getMonth() + 1;
-    }
+  //   if (selectedYear == currentYear) {
+  //     startMonth = new Date().getMonth() + 1;
+  //   }
 
-    this.loadMonths(startMonth);
-  }
+  //   this.loadMonths(startMonth);
+  // }
 
   /**
    * Handle submit button.
@@ -249,7 +259,7 @@ export class CheckoutComponent implements OnInit {
    */
   onSubmit() {
     this.isSubmitted = true;
-    if (this.checkoutFormGroup.valid) {
+    if (this.checkoutFormGroup.valid && this.displayError === '') {
       let order = new Order(this.totalQuantity, this.totalPrice);
 
       let orderItems = this._cartService.cartItems.map(
@@ -263,20 +273,64 @@ export class CheckoutComponent implements OnInit {
         order,
         orderItems
       );
-      this._checkoutService.placeOrder(purchase).subscribe({
-        next: (response) => {
-          alert(
-            `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
-          );
-          this.resetCart();
+
+      this.paymentInfo.amount = Math.round(this.totalPrice * 100);
+      this.paymentInfo.currency = 'USD';
+
+      this._checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
+        (data) => {
+          this.stripe
+            .confirmCardPayment(
+              data.client_secret,
+              {
+                payment_method: {
+                  card: this.cardElement,
+                },
+              },
+              { handleActions: false }
+            )
+            .then((result: { error: { message: string } }) => {
+              if (result.error) {
+                alert('There was an error: ' + result.error.message);
+              } else {
+                this._checkoutService.placeOrder(purchase).subscribe({
+                  next: (response) => {
+                    alert(
+                      `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
+                    );
+                    this.resetCart();
+                  },
+                  error: (err) => {
+                    alert(`There was an error: ${err.message}`);
+                  },
+                });
+              }
+            });
         },
-        error: (err) => {
-          alert(`There was an error: ${err.message}`);
-        },
-      });
+        (error) => {
+          console.log(error);
+        }
+      );
     } else {
       this.scrollToError();
     }
+  }
+  /**
+   * Setup stripe form.
+   * @private
+   * @memberof CheckoutComponent
+   */
+  private setupStripeForm() {
+    var elements = this.stripe.elements();
+    this.cardElement = elements.create('card', { hidePostalCode: true });
+    this.cardElement.mount('#card-element');
+    this.cardElement.on('change', (event: any) => {
+      if (event.error) {
+        this.displayError = event.error.message;
+      } else {
+        this.displayError = '';
+      }
+    });
   }
 
   /**
@@ -285,7 +339,7 @@ export class CheckoutComponent implements OnInit {
    * @memberof CartDetailsComponent
    */
   private resetCart() {
-    localStorage.clear();
+    sessionStorage.clear();
     this._cartService.clearCart();
     this.checkoutFormGroup.reset();
     this.isSubmitted = false;
@@ -329,26 +383,26 @@ export class CheckoutComponent implements OnInit {
     this.countries = Country.getAllCountries();
   }
 
-  /**
-   * Load months.
-   * @param startMonth
-   * @memberof CheckoutComponent
-   */
-  private loadMonths(startMonth: number) {
-    this._formService.getCreditCardMonths(startMonth).subscribe((data) => {
-      this.months = data;
-    });
-  }
+  // /**
+  //  * Load months.
+  //  * @param startMonth
+  //  * @memberof CheckoutComponent
+  //  */
+  // private loadMonths(startMonth: number) {
+  //   this._formService.getCreditCardMonths(startMonth).subscribe((data) => {
+  //     this.months = data;
+  //   });
+  // }
 
-  /**
-   * Load years.
-   * @memberof CheckoutComponent
-   */
-  private loadYears() {
-    this._formService.getCreditCardYears().subscribe((data) => {
-      this.years = data;
-    });
-  }
+  // /**
+  //  * Load years.
+  //  * @memberof CheckoutComponent
+  //  */
+  // private loadYears() {
+  //   this._formService.getCreditCardYears().subscribe((data) => {
+  //     this.years = data;
+  //   });
+  // }
 
   //getters
   get firstName() {

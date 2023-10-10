@@ -14,6 +14,7 @@ Frontend code for the eCommerce App project, using Angular
 ## Resources:
 - [Angular.io](https://angular.io/)
 - [Okta](https://www.okta.com/)
+- [Stripe](https://stripe.com/en-nl)
 
 ### Tips:
 How to create SSL certificate for localhost:
